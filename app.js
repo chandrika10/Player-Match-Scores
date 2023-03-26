@@ -107,8 +107,8 @@ app.get("/matches/:matchId/players", async (request, response) => {
 	      player_details.player_name AS playerName
 	      FROM player_match_score NATURAL JOIN player_details
           WHERE match_id=${matchId};`;
-  const playerDetails = await db.get(getMatch);
-  response.send(convertDbObjectToResponseObject(playerDetails));
+  const playerDetails = await db.all(getMatch);
+  response.send(playerDetails);
 });
 
 //API 7

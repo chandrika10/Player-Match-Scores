@@ -81,12 +81,8 @@ app.get("/matches/:matchId/", async (request, response) => {
 //API 5
 const convertMatchObjectToResponseObject = (dbObject) => {
   return {
-    playerMatchId: dbObject.player_match_id,
-    playerId: dbObject.player_id,
+    
     matchId: dbObject.match_id,
-    score: dbObject.score,
-    fours: dbObject.fours,
-    sixes: dbObject.sixes,
     match: dbObject.match,
     year: dbObject.year,
   };
@@ -112,7 +108,7 @@ app.get("/matches/:matchId/players", async (request, response) => {
 	      FROM player_match_score NATURAL JOIN player_details
           WHERE match_id=${matchId};`;
   const playerDetails = await db.get(getMatch);
-  response.send(playerDetails);
+  response.send(convertDbObjectToResponseObject(playerDetails));
 });
 
 //API 7
